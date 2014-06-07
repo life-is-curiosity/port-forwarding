@@ -13,29 +13,7 @@ The destination may be a predetermined network port (assuming protocols like TCP
 
 The technique is used to permit communications by external hosts with services provided within a private local area network.
 
-Purpose[edit]
-Port forwarding allows remote computers (for example, computers on the Internet) to connect to a specific computer or service within a private local-area network (LAN).[3]
 
-In a typical residential network, nodes obtain Internet access through a DSL or cable modem connected to a router or network address translator (NAT/NAPT). Hosts on the private network are connected to an Ethernet switch or communicate via a wireless LAN. The NAT device's external interface is configured with a public IP address. The computers behind the router, on the other hand, are invisible to hosts on the Internet as they each communicate only with a private IP address.
-
-When configuring port forwarding, the network administrator sets aside one port number on the gateway for the exclusive use of communicating with a service in the private network, located on a specific host. External hosts must know this port number and the address of the gateway to communicate with the network-internal service. Often, the port numbers of well-known Internet services, such as port number 80 for web services (HTTP), are used in port forwarding, so that common Internet services may be implemented on hosts within private networks.
-
-Typical applications include the following:
-
-Running a public HTTP server within a private LAN
-Permitting Secure Shell access to a host on the private LAN from the Internet
-Permitting FTP access to a host on a private LAN from the Internet
-Administrators configure port forwarding in the gateway's operating system. In Linux kernels, this is achieved by packet filter rules in the iptables or netfilter kernel components. BSD and Mac OS X operating systems implement it in the Ipfirewall (ipfw) module.
-
-When used on gateway devices, a port forward may be implemented with a single rule to translate the destination address and port. (On Linux kernels, this is DNAT rule). The source address and port are, in this case, left unchanged. When used on machines that are not the default gateway of the network, the source address must be changed to be the address of the translating machine, or packets will bypass the translator and the connection will fail.
-
-When a port forward is implemented by a proxy process (such as on application layer firewalls, SOCKS based firewalls, or via TCP circuit proxies), then no packets are actually translated, only data is proxied. This usually results in the source address (and port number) being changed to that of the proxy machine.
-
-Usually only one of the private hosts can use a specific forwarded port at one time, but configuration is sometimes possible to differentiate access by the originating host's source address.
-
-Unix-like operating systems sometimes use port forwarding where port numbers smaller than 1024 can only be created by software running as the root user. Running with superuser privileges (in order to bind the port) may be a security risk to the host, therefore port forwarding is used to redirect a low-numbered port to another high-numbered port, so that application software may execute as a common operating system user with reduced privileges.
-
-The Universal Plug and Play protocol (UPnP) provides a feature to automatically install instances of port forwarding in residential Internet gateways. UPnP defines the Internet Gateway Device Protocol (IGD) which is a network service by which an Internet gateway advertises its presence on a private network via the Simple Service Discovery Protocol (SSDP). An application that provides an Internet-based service may discover such gateways and use the UPnP IGD protocol to reserve a port number on the gateway and cause the gateway to forward packets to its listening socket.
 
 Types of port forwarding[edit]
 Port forwarding can be divided into the following types:[4]
@@ -66,13 +44,3 @@ Opening remote desktop sessions is a common use of Remote Port Forwarding. Throu
 Dynamic port forwarding[edit]
 Dynamic Port Forwarding (DPF) is an on-demand method of traversing a firewall/NAT through the use of firewall pinholes. The goal is to enable clients to connect securely to a trusted server that acts as an intermediary for the purpose of sending/receiving data to one or many destination servers.[10]
 
-DPF can be implemented by setting up a local application (such as SSH) as a SOCKS proxy server, which can be used to process data transmissions through the network or over the Internet. Programs (such as web browsers) must be configured individually to direct traffic through the proxy, which acts as a secure tunnel to another server. Once the proxy is no longer needed, the programs must be reconfigured to their original settings. Because of the manual requirements of DPF, it is not often used.[6]
-
-Once the connection is established, DPF can be used to provide additional security for a user connected to an untrusted network. Since data must pass through the secure tunnel to another server before being forwarded to its original destination, the user is protected from packet sniffing that may occur on the LAN.[11]
-
-DPF is a powerful tool with many uses.
-
-A user connected to the Internet through a coffee shop, hotel, or otherwise minimally secure network may wish to use DPF as a way of protecting data.
-DPF can be used to bypass firewalls that restrict access to outside websites, such as in a corporate network.
-DPF can be used as a precaution against hacking.
-See also[edit]
