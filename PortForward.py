@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-import time,socket,threading
+import time
+import socket
+import threading
+import sys, getopt
 
 # Print Log
 def log(strLog):
@@ -61,9 +64,31 @@ class portmap(threading.Thread):
             p1.start()
             p2=pipethread(fwd,newsock)
             p2.start()
-            
+def exception():
+    print ('Usage : port_forward.py -f <From Port> -i <IP> -p <To Port>')
+    sys.exit()
+
+def main(argv):
+    fromPort = 0
+    ip = ''
+    port = 0
+    try:
+        opts, args = getopt.getopt(argv,"h:f:i:p:",["help", "fromPort=","ip=", "port="])
+        if len(opts) != 3:
+            exception()
+        for opt, arg in opts:
+            if opt in ("-h", "--help"):
+                exception()
+            elif opt in ("-f", "--fromPort"):
+                fromPort = int(arg)
+            elif opt in ("-i", "--ip"):
+                ip = arg
+            elif opt in ("-p", "--port"):
+                port = int(arg)
+    except getopt.GetoptError:
+        exception()
+    to = portmap(fromPort, ip, port)      
+    to.start()
             
 if __name__=='__main__':
-
-    # to=portmap(10061,'10.13.135.31',21)      
-    # to.start()
+    main(sys.argv[1:])
