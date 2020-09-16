@@ -44,9 +44,9 @@ def full_address(ip, port):
 
 def tunnel(from_port, to_ip, to_port, local_ip=''):
     global backlog
-    if local_ip is '':
+    if local_ip is '' or local_ip is None:
         local_ip = localhost
-    if to_ip is '':
+    if to_ip is '' or to_ip is None:
         to_ip = localhost
     print("Listening from {} to {}".format(
         full_address(local_ip, from_port), full_address(to_ip, to_port)))
