@@ -8,7 +8,7 @@ import getopt
 # Buffer size
 buffer = 2048
 backlog = 10
-
+localhost = '127.0.0.1'
 
 def socket_pipeline(source, sink):
     print("Socket pipeline created from {} to {}".format(
@@ -45,9 +45,9 @@ def full_address(ip, port):
 def tunnel(from_port, to_ip, to_port, local_ip=''):
     global backlog
     if local_ip is '':
-        local_ip = '127.0.0.1'
+        local_ip = localhost
     if to_ip is '':
-        to_ip = '127.0.0.1'
+        to_ip = localhost
     print("Listening from {} to {}".format(
         full_address(local_ip, from_port), full_address(to_ip, to_port)))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
