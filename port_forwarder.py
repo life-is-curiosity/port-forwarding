@@ -32,7 +32,8 @@ def build_tunnel(socket, forward):
         _thread.start_new_thread(socket_pipeline, (socket, forward))
         _thread.start_new_thread(socket_pipeline, (forward, socket))
     except Exception as e:
-        print(e)
+        print("error {}".format(e))
+        raise e
     while True:
         pass
 
