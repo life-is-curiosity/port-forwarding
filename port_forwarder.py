@@ -7,6 +7,7 @@ import getopt
 
 # Buffer size
 buffer = 2048
+# Maximum connections
 backlog = 10
 localhost = '127.0.0.1'
 
